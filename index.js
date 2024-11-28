@@ -2,10 +2,10 @@ import {Client, Collection, Events, GatewayIntentBits} from 'discord.js';
 import dotenv from "dotenv";
 import fs from "fs";
 import {deployCommands} from "./deploy-commands.js";
+import {interactionHandler} from "./interactionHandler.js";
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const env = process.env.NODE_ENV || 'dev';
 dotenv.config({path: `./.env.${env}`});
-
 const TOKEN = process.env.DISCORD_TOKEN;
 const CLIENT_ID = process.env.DISCORD_CLIENT_ID;
 
@@ -16,7 +16,7 @@ client.on('ready', () => {
 
 // コマンドをデプロイ
 if (env === 'prod') {
-    deployCommands();
+    deployCommands(TOKEN, CLIENT_ID);
 }
 
 // コマンドの読み込み、これでexecuteが実行できるようにする
@@ -34,18 +34,8 @@ for (const file of commandFiles) {
 
 
 client.on(Events.InteractionCreate, async interaction => {
-    if (!interaction.isChatInputCommand()) return; // コマンド以外のイベントは無視する
-    const command = interaction.client.commands.get(interaction.commandName);
-    try {
-        await command.execute(interaction);
-    } catch (error) {
-        console.error(error);
-        if (interaction.replied || interaction.deferred) {
-            await interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
-        } else {
-            await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
-        }
-    }
+    await interactionHandler(interaction, client);
+    console.log(interaction.type)
 });
 
 client.login(TOKEN);

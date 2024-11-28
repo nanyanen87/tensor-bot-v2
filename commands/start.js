@@ -1,10 +1,11 @@
 import { SlashCommandBuilder } from 'discord.js';
-
+// import TimerManager from '../lib/TimerManager.js';
 export const data = new SlashCommandBuilder()
     .setName('start')
     .setDescription('サーバーを起動します。');
-export async function execute(interaction) {
+export async function execute(interaction, serverId=null) {
     console.log('stop command executed');
-    // apiを叩く
-    await interaction.reply(`This command was run by ${interaction.user.username}, who joined on ${interaction.member.joinedAt}.`);
+    await interaction.reply({ content: '処理中...', ephemeral: false }); // まず応答を返す
+
+    await interaction.followUp(`serverId: ${serverId}`);
 }
