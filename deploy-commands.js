@@ -1,7 +1,6 @@
 import { REST, Routes } from 'discord.js';
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import dotenv from "dotenv";
 const env = process.env.NODE_ENV || 'dev';
 dotenv.config({path: `./.env.${env}`});
@@ -20,10 +19,8 @@ const productionCommands = [
     'startServer',
 ];
 // commandsディレクトリからコマンドの中身を取得してデプロイする
-
-const __filename = fileURLToPath(import.meta.url); // 現在のファイルのパス
-const __dirname = path.dirname(__filename);  // 現在のファイルがあるディレクトリ
-const commandsFolderPath = path.join(__dirname, 'commands');
+const __dirname = import.meta.dirname // 現在のファイルがあるディレクトリ
+const commandsFolderPath = path.join(__dirname, 'commands'); // commandsディレクトリのパス
 const commandFiles = fs.readdirSync(commandsFolderPath);
 // ファイルからdeployのためのjsonデータを作成
 for (const file of commandFiles) {

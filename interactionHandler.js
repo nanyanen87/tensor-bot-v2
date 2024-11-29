@@ -4,9 +4,8 @@ import {fileURLToPath} from "url";
 
 const interactions = new Map();
 
-const __filename = fileURLToPath(import.meta.url); // 現在のファイルのパス
-const __dirname = path.dirname(__filename);  // 現在のファイルがあるディレクトリ
-const interactionFolderPath = path.join(__dirname, 'interactions');
+const __dirname = import.meta.dirname // 現在のファイルがあるディレクトリ
+const interactionFolderPath = path.join(__dirname, 'interactions'); // interactionsディレクトリのパス
 const interactionFiles = fs.readdirSync(interactionFolderPath).filter(file => file.endsWith(".js"));
 
 (async () => {
