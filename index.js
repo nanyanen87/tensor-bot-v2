@@ -6,8 +6,8 @@ import {interactionHandler} from "./interactionHandler.js";
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const env = process.env.NODE_ENV || 'dev';
 dotenv.config({path: `./.env.${env}`});
-const TOKEN = process.env.DISCORD_TOKEN;
-const CLIENT_ID = process.env.DISCORD_CLIENT_ID;
+const TOKEN = process.env.DISCORD_BOT_TOKEN;
+const CLIENT_ID = process.env.DISCORD_APP_CLIENT_ID;
 
 
 client.on('ready', () => {
@@ -35,7 +35,6 @@ for (const file of commandFiles) {
 
 client.on(Events.InteractionCreate, async interaction => {
     await interactionHandler(interaction, client);
-    console.log(interaction.type)
 });
 
 client.login(TOKEN);

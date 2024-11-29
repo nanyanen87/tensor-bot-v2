@@ -4,8 +4,8 @@ import path from 'path';
 import dotenv from "dotenv";
 const env = process.env.NODE_ENV || 'dev';
 dotenv.config({path: `./.env.${env}`});
-const TOKEN = process.env.DISCORD_TOKEN;
-const CLIENT_ID = process.env.DISCORD_CLIENT_ID;
+const TOKEN = process.env.DISCORD_BOT_TOKEN;
+const CLIENT_ID = process.env.DISCORD_APP_CLIENT_ID;
 
 const commands = [
     {

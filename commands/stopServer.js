@@ -1,8 +1,8 @@
 import { SlashCommandBuilder, ActionRowBuilder, StringSelectMenuBuilder } from 'discord.js';
 
 export const data = new SlashCommandBuilder()
-    .setName('start-server')
-    .setDescription('起動するサーバーを選択します。');
+    .setName('stop-server')
+    .setDescription('起動しているサーバーを停止します。');
 export async function execute(interaction) {
     await interaction.reply({ content: '処理中...', ephemeral: false }); // まず応答を返す
     // サンプルサーバーリスト（必要に応じて動的に取得）
@@ -18,7 +18,7 @@ export async function execute(interaction) {
     }));
 
     const selectMenu = new StringSelectMenuBuilder()
-        .setCustomId('start-server')
+        .setCustomId('select-server')
         .setPlaceholder('Select a server...')
         .addOptions(options);
 

@@ -1,8 +1,8 @@
-export const type =2; // 2: APPLICATION_COMMAND
+export const type = 2; // 2: APPLICATION_COMMAND
 export async function execute(client, interaction) {
     const command = client.commands.get(interaction.commandName);
     if (!command) {
-        return interaction.reply({
+        return interaction.followUp({
             content: 'Command not found!',
             ephemeral: true,
         });
@@ -12,7 +12,7 @@ export async function execute(client, interaction) {
         await command.execute(interaction);
     } catch (error) {
         console.error(error);
-        await interaction.reply({
+        await interaction.followUp({
             content: 'An error occurred while executing the command.',
             ephemeral: true,
         });

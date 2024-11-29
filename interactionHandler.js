@@ -1,6 +1,5 @@
 import fs from "fs";
 import path from "path";
-import {fileURLToPath} from "url";
 
 const interactions = new Map();
 
@@ -24,7 +23,7 @@ const interactionFiles = fs.readdirSync(interactionFolderPath).filter(file => fi
 export async function interactionHandler(interaction, client) {
     const handler = interactions.get(interaction.type);
     if (!handler) {
-        return interaction.reply({
+        return interaction.followUp({
             content: `Interaction not found! ${interaction.type}`,
             ephemeral: true,
         });
