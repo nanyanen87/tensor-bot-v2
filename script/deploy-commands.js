@@ -20,7 +20,7 @@ const productionCommands = [
 ];
 // commandsディレクトリからコマンドの中身を取得してデプロイする
 const __dirname = import.meta.dirname // 現在のファイルがあるディレクトリ
-const commandsFolderPath = path.join(__dirname, 'commands'); // commandsディレクトリのパス
+const commandsFolderPath = path.join(__dirname, '../commands'); // commandsディレクトリのパス
 const commandFiles = fs.readdirSync(commandsFolderPath);
 // ファイルからdeployのためのjsonデータを作成
 for (const file of commandFiles) {

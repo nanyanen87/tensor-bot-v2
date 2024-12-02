@@ -1,7 +1,7 @@
 import {Client, Collection, Events, GatewayIntentBits} from 'discord.js';
 import dotenv from "dotenv";
 import fs from "fs";
-import {deployCommands} from "./deploy-commands.js";
+import {deployCommands} from "./script/deploy-commands.js";
 import {interactionHandler} from "./interactionHandler.js";
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const env = process.env.NODE_ENV || 'dev';
