@@ -14,9 +14,9 @@ const commands = [
     },
 ];
 const productionCommands = [
-    'start',
-    'stop',
     'startServer',
+    'stopServer',
+    'list',
 ];
 // commandsディレクトリからコマンドの中身を取得してデプロイする
 const __dirname = import.meta.dirname // 現在のファイルがあるディレクトリ
@@ -54,4 +54,4 @@ export function deployCommands(TOKEN, CLIENT_ID) {
     }
 }
 
-// deployCommands(TOKEN, CLIENT_ID);
+deployCommands(TOKEN, CLIENT_ID);

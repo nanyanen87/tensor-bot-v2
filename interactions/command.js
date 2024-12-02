@@ -12,10 +12,16 @@ export async function execute(client, interaction) {
         await command.execute(interaction);
     } catch (error) {
         console.error(error);
-        await interaction.followUp({
-            content: 'An error occurred while executing the command.',
-            ephemeral: true,
-        });
+        if (interaction.replied || interaction.deferred) {
+            await interaction.followUp({
+                content: 'An error occurred while executing the command.',
+                ephemeral: true,
+            });
+        } else {
+            await interaction.reply({
+                content: 'An error occurred while executing the command.',
+                ephemeral: true,
+            });
+        }
     }
-
 }
