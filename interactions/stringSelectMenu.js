@@ -60,4 +60,30 @@ export async function execute(client, interaction) {
             });
         }
     }
+
+    if (interaction.customId === 'extend-server') {
+        // 選択されたらcomponentを削除
+        await interaction.update({ components: [] });
+
+        const selectedServerId = interaction.values[0];
+        console.log(`Selected server: ${selectedServerId}`);
+        const extendCommand = client.commands.get('extend');
+
+        if (!extendCommand) {
+            return interaction.followUp({
+                content: 'Extend command not found.',
+                ephemeral: true,
+            });
+        }
+
+        try {
+            await extendCommand.execute(interaction, selectedServerId);
+        } catch (error) {
+            console.error(error);
+            await interaction.followUp({
+                content: `Error Extending timer: ${error.message}`,
+                ephemeral: true,
+            });
+        }
+    }
 }

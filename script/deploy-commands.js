@@ -17,6 +17,7 @@ const productionCommands = [
     'startServer',
     'stopServer',
     'list',
+    'extendServer'
 ];
 // commandsディレクトリからコマンドの中身を取得してデプロイする
 const __dirname = import.meta.dirname // 現在のファイルがあるディレクトリ

@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js';
-import { TimerManager } from '../lib/timerManager.js';
+import { timerManager } from '../lib/timerManager.js';
 import { TensorDock} from "../lib/tensorDockApi.js";
 const comfyuiDomain = process.env.COMFYUI_DOMAIN;
 
@@ -30,7 +30,6 @@ export async function execute(interaction, serverId=null) {
     }
 
     // timerをセット
-    const timerManager = new TimerManager();
     const callback = async () => {
         await interaction.client.commands.get('stop').execute(interaction, serverId);
         timerManager.clearTimer(serverId);
