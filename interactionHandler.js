@@ -3,6 +3,8 @@ import path from "path";
 
 const interactions = new Map();
 
+
+// interactionsディレクトリからinteractionファイルを読み込む
 const __dirname = import.meta.dirname // 現在のファイルがあるディレクトリ
 const interactionFolderPath = path.join(__dirname, 'interactions'); // interactionsディレクトリのパス
 const interactionFiles = fs.readdirSync(interactionFolderPath).filter(file => file.endsWith(".js"));

@@ -4,6 +4,7 @@ const TOKEN = process.env.DISCORD_BOT_TOKEN;
 import { Client, GatewayIntentBits, Events, Collection } from 'discord.js';
 import fs from 'fs';
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+import {interactionHandler} from "./interactionHandler.js";
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -25,18 +26,7 @@ for (const file of commandFiles) {
 
 // interactionがあったときの処理
 client.on(Events.InteractionCreate, async interaction => {
-    if (!interaction.isChatInputCommand()) return; // コマンド以外のイベントは無視する
-    const command = interaction.client.commands.get(interaction.commandName);
-    try {
-        await command.execute(interaction);
-    } catch (error) {
-        console.error(error);
-        if (interaction.replied || interaction.deferred) {
-            await interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
-        } else {
-            await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
-        }
-    }
+    await interactionHandler(interaction, client);
 });
 
 client.login(TOKEN);
