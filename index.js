@@ -3,7 +3,13 @@ import dotenv from "dotenv";
 import fs from "fs";
 import {deployCommands} from "./script/deploy-commands.js";
 import {interactionHandler} from "./interactionHandler.js";
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent, // メッセージの内容を読み取るために必要
+    ]
+});
 const env = process.env.NODE_ENV || 'dev';
 dotenv.config({path: `./.env.${env}`});
 const TOKEN = process.env.DISCORD_BOT_TOKEN;
@@ -31,6 +37,18 @@ for (const file of commandFiles) {
         console.log(`[WARNING] ${file} には "data" または "execute" プロパティがありません。`);
     }
 }
+
+// messageが来たときの処理
+client.on(Events.MessageCreate, async message => {
+    // Bot自身のメッセージは無視
+    if (message.author.bot) return;
+    console.log(message.content);
+    // リプライ（メンション）が含まれているか確認
+    if (message.mentions.has(client.user)) {
+        // リプライに対して返信する
+        await message.reply('こんにちは！リプライありがとうございます！');
+    }
+});
 
 
 client.on(Events.InteractionCreate, async interaction => {
