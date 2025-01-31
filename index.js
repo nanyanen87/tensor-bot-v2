@@ -10,6 +10,7 @@ const client = new Client({
         GatewayIntentBits.MessageContent, // メッセージの内容を読み取るために必要
     ]
 });
+import OllamaApi from './lib/ollamaApi.js';
 const env = process.env.NODE_ENV || 'dev';
 dotenv.config({path: `./.env.${env}`});
 const TOKEN = process.env.DISCORD_BOT_TOKEN;
@@ -42,11 +43,16 @@ for (const file of commandFiles) {
 client.on(Events.MessageCreate, async message => {
     // Bot自身のメッセージは無視
     if (message.author.bot) return;
-    console.log(message.content);
     // リプライ（メンション）が含まれているか確認
     if (message.mentions.has(client.user)) {
         // リプライに対して返信する
-        await message.reply('こんにちは！リプライありがとうございます！');
+        const ollama = new OllamaApi();
+        try {
+            const response = await ollama.generate(message.content.slice(5));
+            await message.reply(response.response);
+        } catch (error) {
+            await message.reply('エラーが発生しました: ' + error.message);
+        }
     }
 });
 

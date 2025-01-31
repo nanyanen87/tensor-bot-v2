@@ -55,4 +55,4 @@ export function deployCommands(TOKEN, CLIENT_ID) {
     }
 }
 
-deployCommands(TOKEN, CLIENT_ID);
+// deployCommands(TOKEN, CLIENT_ID);
